@@ -12,7 +12,11 @@ public:
     QSize btsize;
     QString text;
 public slots:
-    void addStr();
+    void addNumtoString();
+    void clearResult();
+    void plusSign();
+    void minusSign();
+    void equalSign();
 };
 
 #endif // MYBUTTON_H

@@ -15,7 +15,7 @@ public:
     QSize resSize;
 public slots:
     void displayResult();
-    void clearResult();
+    void clearScreen();
 };
 
 

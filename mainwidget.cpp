@@ -6,16 +6,18 @@
 #include <QObject>
 #include <QSignalMapper>
 
-QString res="";
+QString curr="";
+QString prev="";
+int sign=0;
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
 {
     QVBoxLayout *vb = new QVBoxLayout(this); // timer, grid and spaceritem
     QGridLayout *gl = new QGridLayout();
-    Screen *result = new Screen("88");
+    Screen *screen = new Screen("88");
 
-    char* buttonNames[20]={"+","-","=","Clr",
+    const char* buttonNames[20]={"+","-","=","Clr",
                               "0","1","2","3",
                               "4","5","6","7",
                               "8","9","A","B",
@@ -24,14 +26,26 @@ MainWidget::MainWidget(QWidget *parent)
     for(int row=0; row<5; row++){
         for(int col=0; col<4; col++){
             int num=(row*4+col);
-            char *buttonText=buttonNames[num];
+            const char *buttonText=buttonNames[num];
             MyButton *button = new MyButton(QString(buttonText));
             if(row!=0){
-                QObject::connect(button,SIGNAL(clicked()),button,SLOT(addStr()));
-                QObject::connect(button,SIGNAL(clicked()),result, SLOT(displayResult()));
+                QObject::connect(button,SIGNAL(clicked()),button,SLOT(addNumtoString()));
+                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(displayResult()));
+            }
+            else if(col==0){
+                QObject::connect(button,SIGNAL(clicked()),button, SLOT(plusSign()));
+                QObject::connect(button,SIGNAL(clicked()),button, SLOT(clearResult()));
+            }
+            else if(col==1){
+                QObject::connect(button,SIGNAL(clicked()),button, SLOT(minusSign()));
+                QObject::connect(button,SIGNAL(clicked()),button, SLOT(clearResult()));
+            }
+            else if(col==2){
+                QObject::connect(button,SIGNAL(clicked()),button, SLOT(equalSign()));
+                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(displayResult()));
             }
             else if(col==3){
-                QObject::connect(button,SIGNAL(clicked()),result, SLOT(clearResult()));
+                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(clearScreen()));
             }
             gl->addWidget(button, row, col, 1,1);
         }
@@ -39,21 +53,51 @@ MainWidget::MainWidget(QWidget *parent)
 
 
 
-    vb->addWidget(result);
+    vb->addWidget(screen);
     vb->addLayout(gl);
     setWindowTitle("Color Game");
     resize(640, 480);
 }
 
 void Screen::displayResult(){
-    setText(res);
+    setText(curr);
 }
 
-void Screen::clearResult(){
+void Screen::clearScreen(){
     setText(QString("0"));
+    curr="";
+    prev="";
+    sign=0;
 }
 
-void MyButton::addStr(){
-    res= res + this->text;
+void MyButton::clearResult(){
+    curr="";
 }
 
+void MyButton::plusSign(){
+    sign=1;
+    prev=curr;
+}
+
+void MyButton::minusSign(){
+    sign=2;
+    prev=curr;
+}
+
+void MyButton::equalSign(){
+    if(sign==1){
+        std::string str=std::to_string(std::stoi(prev.toStdString())+std::stoi(curr.toStdString()));
+        curr=QString::fromStdString(str);
+    }
+    if(sign==2){
+        std::string str=std::to_string(std::stoi(prev.toStdString())-std::stoi(curr.toStdString()));
+        curr=QString::fromStdString(str);
+    }
+}
+
+void MyButton::addNumtoString(){
+    curr= curr + this->text;
+}
+
+
+//void MyButton::
