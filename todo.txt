@@ -1,2 +1,2 @@
-işlem sonucundan sonra rakamlara basılması
-işlem sonucundan sonra eşittire basılması
+eşittirden sonra sayı gelirse resetleme yapıyor ama işaret gelirse prev ve curr yanlış değerleri tutuyor.
+eksili sayıdan sonra eşittire basıldığında o miktarda arttırması.

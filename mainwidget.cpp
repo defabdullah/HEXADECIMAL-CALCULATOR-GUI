@@ -14,6 +14,8 @@ int sign=0;
 int last_sign_equal=0;
 int last_element=0;
 bool cleared=true;
+bool isEqual=true;
+bool clr_nums=true;
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
@@ -61,7 +63,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     vb->addWidget(screen);
     vb->addLayout(gl);
-    setWindowTitle("BATUHAN ILHAN");
+    setWindowTitle("CALCULATOR");
     resize(640, 480);
 }
 
@@ -88,18 +90,21 @@ void MyButton::clearResult(){
     }
     last_sign_equal=0;
     cleared=false;
+    clr_nums=false;
 }
 
 void MyButton::plusSign(){
-    sign=1;
+    isEqual=false;
     equalSign();
     prev=curr;
+    sign=1;
 }
 
 void MyButton::minusSign(){
-    sign=2;
+    isEqual=false;
     equalSign();
     prev=curr;
+    sign=2;
 }
 
 void MyButton::equalSign(){
@@ -140,9 +145,21 @@ void MyButton::equalSign(){
         }
     }
     last_sign_equal=1;
+    if(isEqual){
+        clr_nums=true;
+        sign=0;
+    }
+    isEqual=true;
 }
 
 void MyButton::addNumtoString(){
+    if(clr_nums){
+        curr="";
+        prev="";
+        sign=0;
+        cleared=true;
+        clr_nums=false;
+    }
     last_sign_equal=0;
     curr= curr + this->text;
 }
