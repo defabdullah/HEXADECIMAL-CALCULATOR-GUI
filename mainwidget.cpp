@@ -147,7 +147,6 @@ void MyButton::equalSign(){
     last_sign_equal=1;
     if(isEqual){
         clr_nums=true;
-        sign=0;
     }
     isEqual=true;
 }
