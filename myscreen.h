@@ -10,7 +10,7 @@ class Screen : public QLabel
 {
     Q_OBJECT
 public:
-    Screen(const char* text,QWidget *parent = 0);
+    Screen(QWidget *parent = 0);
     QFont myFont;
     QSize resSize;
 public slots:

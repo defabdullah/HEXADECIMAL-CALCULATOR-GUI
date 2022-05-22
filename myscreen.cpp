@@ -1,11 +1,11 @@
 #include "myscreen.h"
 #include <QDebug>
 #include<iostream>
-Screen::Screen(const char* text,QWidget *parent)
+Screen::Screen(QWidget *parent)
     :QLabel(parent)
 {
     resSize = QSize(640, 100);
-    setText(text);
+    setText("0");
     setFixedSize(resSize);
     myFont = this->font();
     myFont.setPointSize(75);

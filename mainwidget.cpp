@@ -12,6 +12,8 @@ QString prev="";
 int sign=0;
 int last_sign_equal=0;
 int last_element=0;
+bool cleared=true;
+
 int power(int a,int b){
         int result=1;
         for(int i=0;i<b;i++){
@@ -116,7 +118,7 @@ MainWidget::MainWidget(QWidget *parent)
 {
     QVBoxLayout *vb = new QVBoxLayout(this); // timer, grid and spaceritem
     QGridLayout *gl = new QGridLayout();
-    Screen *screen = new Screen("0");
+    Screen *screen = new Screen();
 
     const char* buttonNames[20]={"+","-","=","Clr",
                               "0","1","2","3",
@@ -163,6 +165,7 @@ MainWidget::MainWidget(QWidget *parent)
 
 void Screen::displayResult(){
     setText(curr);
+    cleared=false;
 }
 
 void Screen::clearScreen(){
@@ -171,30 +174,34 @@ void Screen::clearScreen(){
     prev="";
     sign=0;
     last_sign_equal=0;
-
+    cleared=true;
 }
 
 void MyButton::clearResult(){
-    curr="";
+    if(cleared && sign==2){
+        curr="-";
+    }
+    else{
+        curr="";
+    }
     last_sign_equal=0;
+    cleared=false;
 }
 
 void MyButton::plusSign(){
     sign=1;
     prev=curr;
-    last_sign_equal=0;
 }
 
 void MyButton::minusSign(){
-        sign=2;
-        prev=curr;
-        last_sign_equal=0;
-
+    sign=2;
+    prev=curr;
 }
 
 void MyButton::equalSign(){
     int prev_decimal = convert_integer(prev.toStdString());
     int curr_decimal = convert_integer(curr.toStdString());
+
     if(sign==1){
         int result_decimal =  prev_decimal + curr_decimal;
         std :: string str=convert_string(result_decimal);
@@ -204,8 +211,8 @@ void MyButton::equalSign(){
             prev=curr;
             curr=QString::fromStdString(str);
         }
-
     }
+
     else if(sign==2){
         if(last_sign_equal){
             int result_decimal =  curr_decimal - last_element;
