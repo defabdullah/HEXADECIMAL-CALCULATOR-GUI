@@ -9,12 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    convertFunctions.cpp \
     main.cpp \
     mainwidget.cpp \
     mybutton.cpp \
     myscreen.cpp
 
 HEADERS += \
+    convertFunctions.h \
     mainwidget.h \
     mybutton.h \
     myscreen.h
