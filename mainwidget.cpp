@@ -11,8 +11,6 @@
 QString curr="";
 QString prev="";
 int sign=0;
-int last_sign_equal=0;
-int last_element=0;
 bool cleared=true;
 bool isEqual=true;
 bool clr_nums=true;
@@ -77,7 +75,6 @@ void Screen::clearScreen(){
     curr="";
     prev="";
     sign=0;
-    last_sign_equal=0;
     cleared=true;
 }
 
@@ -88,7 +85,6 @@ void MyButton::clearResult(){
     else{
         curr="";
     }
-    last_sign_equal=0;
     cleared=false;
     clr_nums=false;
 }
@@ -118,33 +114,23 @@ void MyButton::equalSign(){
     if(sign==1){
         result_decimal =  prev_decimal + curr_decimal;
         std :: string str=convert_string(result_decimal);
-        if(last_sign_equal){
-            curr=QString::fromStdString(str);
-        }else{
-            prev=curr;
-            curr=QString::fromStdString(str);
-        }
+        prev=curr;
+        curr=QString::fromStdString(str);
+        sign=0;
+
     }
 
     else if(sign==2){
-        if(last_sign_equal){
-            result_decimal =  curr_decimal - last_element;
-            std :: string str=convert_string(result_decimal);
-            curr=QString::fromStdString(str);
-
-        }else{
-            if(prev.toStdString()==""){
-                result_decimal=curr_decimal;
-            }
-            else{
-                result_decimal =  prev_decimal - curr_decimal;
-            }
-            std :: string str=convert_string(result_decimal);
-            curr=QString::fromStdString(str);
-            last_element=curr_decimal;
+        if(prev.toStdString()==""){
+            result_decimal=curr_decimal;
         }
+        else{
+            result_decimal =  prev_decimal - curr_decimal;
+        }
+        std :: string str=convert_string(result_decimal);
+        curr=QString::fromStdString(str);
+        sign=0;
     }
-    last_sign_equal=1;
     if(isEqual){
         clr_nums=true;
     }
@@ -159,6 +145,5 @@ void MyButton::addNumtoString(){
         cleared=true;
         clr_nums=false;
     }
-    last_sign_equal=0;
     curr= curr + this->text;
 }
