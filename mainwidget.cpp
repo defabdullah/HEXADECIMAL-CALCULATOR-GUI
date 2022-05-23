@@ -14,6 +14,7 @@ int sign=0;
 bool cleared=true;
 bool isEqual=true;
 bool clr_nums=true;
+bool last_button_operator=false;
 
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
@@ -76,6 +77,7 @@ void Screen::clearScreen(){
     prev="";
     sign=0;
     cleared=true;
+    last_button_operator=false;
 }
 
 void MyButton::clearResult(){
@@ -91,16 +93,27 @@ void MyButton::clearResult(){
 
 void MyButton::plusSign(){
     isEqual=false;
-    equalSign();
-    prev=curr;
-    sign=1;
+    if(last_button_operator){
+        sign=1;
+    }else{
+        equalSign();
+        prev=curr;
+        sign=1;
+    }
+    last_button_operator=true;
 }
 
 void MyButton::minusSign(){
     isEqual=false;
-    equalSign();
-    prev=curr;
-    sign=2;
+    if(last_button_operator){
+        sign=2;
+    }else{
+        equalSign();
+        prev=curr;
+        sign=2;
+    }
+    last_button_operator=true;
+
 }
 
 void MyButton::equalSign(){
@@ -135,6 +148,7 @@ void MyButton::equalSign(){
         clr_nums=true;
     }
     isEqual=true;
+    last_button_operator=false;
 }
 
 void MyButton::addNumtoString(){
@@ -145,5 +159,6 @@ void MyButton::addNumtoString(){
         cleared=true;
         clr_nums=false;
     }
+    last_button_operator=false;
     curr= curr + this->text;
 }
