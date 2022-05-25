@@ -6,6 +6,7 @@
 #include <QFont>
 #include <iostream>
 
+
 class Screen : public QLabel
 {
     Q_OBJECT

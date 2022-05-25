@@ -1,6 +1,4 @@
 #include "myscreen.h"
-#include <QDebug>
-#include<iostream>
 Screen::Screen(QWidget *parent)
     :QLabel(parent)
 {

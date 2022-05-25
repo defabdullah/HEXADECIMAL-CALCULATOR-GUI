@@ -2,11 +2,7 @@
 #include "mybutton.h"
 #include "myscreen.h"
 #include "convertFunctions.h"
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QObject>
-#include <QSignalMapper>
-#include <iostream>
+
 
 QString curr="";
 QString prev="";
