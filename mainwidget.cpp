@@ -35,24 +35,24 @@ MainWidget::MainWidget(QWidget *parent)
             const char *buttonText=buttonNames[num];
             MyButton *button = new MyButton(QString(buttonText));
             if(row!=0){
-                QObject::connect(button,SIGNAL(clicked()),button,SLOT(addNumtoString()));
-                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(displayResult()));
+                QObject::connect(button,SIGNAL(released()),button,SLOT(addNumtoString()));
+                QObject::connect(button,SIGNAL(released()),screen, SLOT(displayResult()));
             }
             else if(col==0){
-                QObject::connect(button,SIGNAL(clicked()),button, SLOT(plusSign()));
-                QObject::connect(button,SIGNAL(clicked()),button, SLOT(clearResult()));
+                QObject::connect(button,SIGNAL(released()),button, SLOT(plusSign()));
+                QObject::connect(button,SIGNAL(released()),button, SLOT(clearResult()));
             }
             else if(col==1){
-                QObject::connect(button,SIGNAL(clicked()),button, SLOT(minusSign()));
-                QObject::connect(button,SIGNAL(clicked()),button, SLOT(clearResult()));
+                QObject::connect(button,SIGNAL(released()),button, SLOT(minusSign()));
+                QObject::connect(button,SIGNAL(released()),button, SLOT(clearResult()));
 
             }
             else if(col==2){
-                QObject::connect(button,SIGNAL(clicked()),button, SLOT(equalSign()));
-                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(displayResult()));
+                QObject::connect(button,SIGNAL(released()),button, SLOT(equalSign()));
+                QObject::connect(button,SIGNAL(released()),screen, SLOT(displayResult()));
             }
             else if(col==3){
-                QObject::connect(button,SIGNAL(clicked()),screen, SLOT(clearScreen()));
+                QObject::connect(button,SIGNAL(released()),screen, SLOT(clearScreen()));
             }
             gl->addWidget(button, row, col, 1,1);
         }
