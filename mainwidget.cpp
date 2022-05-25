@@ -67,8 +67,13 @@ MainWidget::MainWidget(QWidget *parent)
 }
 
 void Screen::displayResult(){
-    setText(curr);
-    cleared=false;
+    if(isEqual && cleared){
+        setText("0");
+    }
+    else{
+        setText(curr);
+        cleared=false;
+    }
 }
 
 void Screen::clearScreen(){
@@ -152,6 +157,7 @@ void MyButton::equalSign(){
 }
 
 void MyButton::addNumtoString(){
+    isEqual=false;
     if(clr_nums){
         curr="";
         prev="";
