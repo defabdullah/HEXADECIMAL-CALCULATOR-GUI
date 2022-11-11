@@ -15,7 +15,7 @@ bool last_button_operator=false;
 MainWidget::MainWidget(QWidget *parent)
     : QWidget{parent}
 {
-    QVBoxLayout *vb = new QVBoxLayout(this); // timer, grid and spaceritem
+    QVBoxLayout *vb = new QVBoxLayout(this);
     QGridLayout *gl = new QGridLayout();
     Screen *screen = new Screen();
 

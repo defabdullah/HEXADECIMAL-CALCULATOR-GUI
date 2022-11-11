@@ -1,3 +1,0 @@
-SOLVED| eşittirden sonra sayı gelirse resetleme yapıyor ama işaret gelirse prev ve curr yanlış değerleri tutuyor.
-SOLVED| eksili sayıdan sonra eşittire basıldığında o miktarda arttırması.
-SOLVED| eşittire basınca sayı gidiyor

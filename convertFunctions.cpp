@@ -62,20 +62,17 @@ std::string convert_string(int number) {
                 is_negative=1;
         }
         while (number != 0) {
-        // temporary variable to store remainder
-        int temp = 0;
-        // storing remainder in temp variable.
-        temp = number % 16;
-        // check if temp < 10
-        if (temp < 10) {
-            hexaDeciNum[i] = temp + 48;
-            i++;
-        }
-        else {
-            hexaDeciNum[i] = temp + 55;
-            i++;
-        }
-        number = number / 16;
+            int temp = 0;
+            temp = number % 16;
+            if (temp < 10) {
+                hexaDeciNum[i] = temp + 48;
+                i++;
+            }
+            else {
+                hexaDeciNum[i] = temp + 55;
+                i++;
+            }
+            number = number / 16;
     }
     if(is_negative){
             hexaDeciNum[i]='-';
